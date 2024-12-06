@@ -18,8 +18,10 @@ public class DictionaryReference {
 
     private static final Logger logger = LoggerFactory.getLogger(DictionaryReference.class.getName());
 
-    private static Map<String, String> dictionary;
 
+    private static Map<String, String> dictionary;
+    //with the classes itself loaded in ram memory not when it's instaneated, the static block will be executed
+    //greedy initialization of the dictionary
     static {
 
         try {
@@ -37,18 +39,20 @@ public class DictionaryReference {
 
         StopWatch sw = new StopWatch();
         sw.start();
-
+        //stream IO file
         InputStream inputStream = DictionaryReference.class.getClassLoader()
                                                            .getResourceAsStream("dictionary.json");
+        //
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        //lines is a stream API, stream of lines from buffer reader one at a time
 
         String json = bufferedReader.lines()
                                     .collect(Collectors.joining("\n"));
 
         ObjectMapper mapper = new ObjectMapper();
         dictionary = mapper.readValue(json, Map.class);
-
+        // get
         sw.stop();
 
         long milliseconds = sw.getLastTaskTimeMillis();

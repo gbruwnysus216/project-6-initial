@@ -47,20 +47,20 @@ public class DictionaryController {
 
         StopWatch sw = new StopWatch();
         sw.start();
-        List<Entry> entry = this.dictionaryService.getWordsStartingWith(value);
+        List<Entry> entries = this.dictionaryService.getWordsStartingWith(value);
         sw.stop();
 
         long nanoSeconds = sw.getLastTaskTimeNanos();
         String message = new StringBuilder().append("Retrieved entries for words starting with [")
                 .append(value)
                 .append("] containing ")
-                .append(entry.size())
+                .append(entries.size())
                 .append(" entries in ")
                 .append(nanoSeconds / 1000000.0)
                 .append("ms")
                 .toString();
         logger.info(message);
-        return entry;
+        return entries;
     }
 
     @GetMapping("/getWordsThatContain/{value}")
@@ -68,20 +68,20 @@ public class DictionaryController {
 
         StopWatch sw = new StopWatch();
         sw.start();
-        List<Entry> entry = this.dictionaryService.getWordsThatContain(value);
+        List<Entry> entries = this.dictionaryService.getWordsThatContain(value);
         sw.stop();
 
         long nanoSeconds = sw.getLastTaskTimeNanos();
         String message = new StringBuilder().append("Retrieved entries for words containing [")
                 .append(value)
                 .append("] containing ")
-                .append(entry.size())
+                .append(entries.size())
                 .append(" entries in ")
                 .append(nanoSeconds / 1000000.0)
                 .append("ms")
                 .toString();
         logger.info(message);
-        return entry;
+        return entries;
     }
 
     @GetMapping("/getWordsThatContainConsecutiveLetters")
@@ -89,18 +89,18 @@ public class DictionaryController {
 
         StopWatch sw = new StopWatch();
         sw.start();
-        List<Entry> entry = this.dictionaryService.getWordsThatContainConsecutiveDoubleLetters();
+        List<Entry> entries = this.dictionaryService.getWordsThatContainConsecutiveDoubleLetters();
         sw.stop();
 
         long nanoSeconds = sw.getLastTaskTimeNanos();
         String message = new StringBuilder().append("Retrieved entries for words containing ")
                 .append("consecutive letters containing ")
-                .append(entry.size())
+                .append(entries.size())
                 .append(" entries in ")
                 .append(nanoSeconds / 1000000.0)
                 .append("ms")
                 .toString();
         logger.info(message);
-        return entry;
+        return entries;
     }
 }
