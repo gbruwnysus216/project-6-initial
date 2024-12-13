@@ -41,11 +41,11 @@ public class AggregatorController {
 
         long nanoSeconds = sw.getLastTaskTimeNanos();
         String message = new StringBuilder().append("Retrieved entry for [")
-                                            .append(word)
-                                            .append("] in ")
-                                            .append(nanoSeconds / 1000000.0)
-                                            .append("ms")
-                                            .toString();
+                .append(word)
+                .append("] in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
         log.info(message);
         return result;
     }
@@ -60,13 +60,13 @@ public class AggregatorController {
 
         long nanoSeconds = sw.getTotalTimeNanos();
         String message = new StringBuilder().append("Retrieved entries for words containing successive letters and starting with [")
-                                            .append(chars)
-                                            .append("], containing ")
-                                            .append(results.size())
-                                            .append(" entries in ")
-                                            .append(nanoSeconds / 1000000.0)
-                                            .append("ms")
-                                            .toString();
+                .append(chars)
+                .append("], containing ")
+                .append(results.size())
+                .append(" entries in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
         log.info(message);
         return results;
     }
@@ -81,13 +81,13 @@ public class AggregatorController {
 
         long nanoSeconds = sw.getTotalTimeNanos();
         String message = new StringBuilder().append("Retrieved entries for words starting with [")
-                                            .append(chars)
-                                            .append("], containing ")
-                                            .append(results.size())
-                                            .append(" entries in ")
-                                            .append(nanoSeconds / 1000000.0)
-                                            .append("ms")
-                                            .toString();
+                .append(chars)
+                .append("], containing ")
+                .append(results.size())
+                .append(" entries in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
         log.info(message);
         return results;
     }
@@ -102,13 +102,13 @@ public class AggregatorController {
 
         long nanoSeconds = sw.getTotalTimeNanos();
         String message = new StringBuilder().append("Retrieved entries for words containing [")
-                                            .append(chars)
-                                            .append("], containing ")
-                                            .append(results.size())
-                                            .append(" entries in ")
-                                            .append(nanoSeconds / 1000000.0)
-                                            .append("ms")
-                                            .toString();
+                .append(chars)
+                .append("], containing ")
+                .append(results.size())
+                .append(" entries in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
         log.info(message);
         return results;
     }
@@ -123,14 +123,34 @@ public class AggregatorController {
 
         long nanoSeconds = sw.getTotalTimeNanos();
         String message = new StringBuilder().append("Retrieved entries for words containing specific consecutive letters [")
-                                            .append(chars)
-                                            .append("], containing ")
-                                            .append(results.size())
-                                            .append(" entries in ")
-                                            .append(nanoSeconds / 1000000.0)
-                                            .append("ms")
-                                            .toString();
+                .append(chars)
+                .append("], containing ")
+                .append(results.size())
+                .append(" entries in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
         log.info(message);
         return results;
     }
+
+  //prompt 3
+
+    @GetMapping("/getAllPalindromes")
+    public Entry getAllPalindromes() {
+
+        StopWatch sw = new StopWatch();
+        sw.start();
+        List<Entry> result = service.getAllPalindromes();
+        sw.stop();
+
+        long nanoSeconds = sw.getLastTaskTimeNanos();
+        String message = new StringBuilder().append("Retrieved entry for all Palindromes[")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
+        log.info(message);
+        return (Entry) result;
+    }
+
 }

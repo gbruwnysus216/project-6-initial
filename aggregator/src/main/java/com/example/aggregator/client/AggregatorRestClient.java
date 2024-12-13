@@ -1,7 +1,6 @@
 package com.example.aggregator.client;
 
 import com.example.aggregator.model.Entry;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +18,6 @@ public class AggregatorRestClient {
         this.restTemplate = restTemplate;
     }
 
-    @CircuitBreaker(name = "getDefinitionForCB", fallbackMethod = "fallbackGetDefinitionFor")
     public Entry getDefinitionFor(String word) {
 
         String uri = "http://localhost:9091/getWord/" + word;
@@ -29,7 +27,20 @@ public class AggregatorRestClient {
         return result;
     }
 
-    @CircuitBreaker(name = "getWordsStartingWithCB", fallbackMethod = "fallbackGetWordsStartingWith")
+    //prompt 3
+    public List<Entry> getAllPalindromes() {
+
+        String uri = "http://localhost:9091/getAllPalindromes/";
+
+        //AI prompt - fix this code - sent the "getAllPalindermesCB" as the prompt
+        Entry[] resultArray = restTemplate.getForObject(uri, Entry[].class);
+        List<Entry> result = Arrays.asList(resultArray);
+
+        return result;
+    }
+
+
+
     public List<Entry> getWordsStartingWith(String chars) {
 
         String uri = "http://localhost:9091/getWordsStartingWith/" + chars;
@@ -40,8 +51,19 @@ public class AggregatorRestClient {
         return Arrays.stream(entryArray)
                      .collect(Collectors.toList());
     }
+    //prompt 1
 
-    @CircuitBreaker(name = "getWordsThatContainCB", fallbackMethod = "fallbackGetWordsThatContain")
+    public List<Entry> getWordsEndingWith(String chars) {
+        //prompt 1
+        String uri = "http://localhost:9091/getWordsEndngWith/" + chars;
+
+        ResponseEntity<Entry[]> responseEntity = restTemplate.getForEntity(uri, Entry[].class);
+        Entry[] entryArray = responseEntity.getBody();
+
+        return Arrays.stream(entryArray)
+                .collect(Collectors.toList());
+    }
+
     public List<Entry> getWordsThatContain(String chars) {
 
         String uri = "http://localhost:9091/getWordsThatContain/" + chars;
@@ -53,7 +75,6 @@ public class AggregatorRestClient {
                      .collect(Collectors.toList());
     }
 
-    @CircuitBreaker(name = "getWordsThatContainConsecutiveLettersCB", fallbackMethod = "fallbackGetWordsThatContainConsecutiveLetters")
     public List<Entry> getWordsThatContainConsecutiveLetters() {
 
         String uri = "http://localhost:9091/getWordsThatContainConsecutiveLetters";
@@ -79,6 +100,16 @@ public class AggregatorRestClient {
     }
 
     public List<Entry> fallbackGetWordsThatContainConsecutiveLetters(Throwable t) {
+        return Arrays.asList(new Entry()); // Return a default list or handle the fallback logic
+    }
+
+    //prompt? I am too lazy to double but I'm assuming a fallback is required
+    public List<Entry> fallbackGetWordsEndingWith(String chars, Throwable t) {
+        return Arrays.asList(new Entry()); // Return a default list or handle the fallback logic
+    }
+
+    //prompt? I am too lazy to double but I'm assuming a fallback is required
+    public List<Entry> fallbackGetAllPalindromes( Throwable t) {
         return Arrays.asList(new Entry()); // Return a default list or handle the fallback logic
     }
 

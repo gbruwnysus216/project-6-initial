@@ -16,12 +16,16 @@ import java.util.stream.Collectors;
 @Component
 public class DictionaryReference {
 
+    //memorize the Looger
     private static final Logger logger = LoggerFactory.getLogger(DictionaryReference.class.getName());
 
-
+    //default memory allocation for the dictionary may not be enough
     private static Map<String, String> dictionary;
-    //with the classes itself loaded in ram memory not when it's instaneated, the static block will be executed
-    //greedy initialization of the dictionary
+
+    //greedy initialization of the dictionary, as soon as the class is load the file get reads
+    //loaded the class file is loaded into RAM memory, ra after it's declared
+    //kind of constuctors with instances of a class
+    //static blocks accosiated with the class, not with the instance
     static {
 
         try {
@@ -69,4 +73,10 @@ public class DictionaryReference {
     public static Map<String, String> getDictionary() {
         return DictionaryReference.dictionary;
     }
+
+    public static void setDictionary(Map<String, String> dictionary) {
+        DictionaryReference.dictionary = dictionary;
+    }
+
+
 }

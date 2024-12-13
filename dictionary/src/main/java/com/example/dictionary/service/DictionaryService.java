@@ -38,6 +38,7 @@ public class DictionaryService {
                                   .collect(Collectors.toList());
     }
 
+
     public List<Entry> getWordsThatContain(String value) {
 
         return DictionaryReference.getDictionary()
@@ -70,6 +71,8 @@ public class DictionaryService {
                 .collect(Collectors.toList());
     }
 
+    //prompt 1.1 - gimmie
+    //copied getWordsStartingWith and changed the filter to endsWidth
     public List<Entry> getWordsEndingWith(String value) {
 
         return DictionaryReference.getDictionary()

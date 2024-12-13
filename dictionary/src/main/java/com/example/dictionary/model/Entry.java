@@ -2,6 +2,7 @@ package com.example.dictionary.model;
 
 public class Entry {
 
+    //to be serialized to JSON
     private String word;
     private String definition;
 
